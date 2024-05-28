@@ -1,0 +1,51 @@
+﻿@model List<BaoCaoWebNangCao.Models.DANHMUCCONGTHUC>
+@{
+    ViewBag.Title = "Danh Mục Công Thức";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+<style>
+    table tr:first-child {
+        background-color: #6cc0f5;
+        color: #ffffff;
+    }
+
+    table tr:nth-child(2n) {
+        background-color: #ccc;
+    }
+</style>
+<h2>Danh Mục Công Thức</h2>
+<a href="@Url.Action("Create","DanhMucCongThuc",new {area="Admin"})">Thêm Mới Danh Mục</a><br />
+<a href="@Url.Action("Create","CongThuc",new {area="Admin"})">Thêm Mới Công Thức</a>
+
+<form class="d-flex flex-row align-items-center flex-wrap" action="/Admin/DanhMucCongThuc/Index">
+    <lable for="search" class="mx-2 my-1">Tìm Kiếm</lable>
+    <input type="search" class="form-control w-auto" id="search" name="search" value="@ViewBag.Search" placeholder="Tên danh mục" />
+    <button type="submit" class="btn btn-primary mx-2">Tìm Kiếm</button>
+</form>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Tên Người Dùng</th>
+        <th>Tên Danh Mục</th>
+        <th></th>
+        <th></th>
+        <th></th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            @if (item.TAIKHOAN != null)
+            {
+                <td>@item.TAIKHOAN.TENNGUOIDUNG</td>
+            }
+            <td>@item.TENDANHMUC</td>
+            <td><a class="btn btn-success" href="@Url.Action("Detail","DanhMucCongThuc", new {area="Admin", id = item.ID})">Chi tiết </a></td>
+            <td><a class="btn btn-primary" href="@Url.Action("Edit","DanhMucCongThuc", new {area="Admin", id = item.ID})">Sửa </a></td>
+            <td><a class="btn btn-danger" href="@Url.Action("Delete","DanhMucCongThuc", new {area="Admin", id = item.ID})">Xóa </a></td>
+
+        </tr>
+    }
+</table>
+

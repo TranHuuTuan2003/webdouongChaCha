@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<div>
+    <canvas id="thongkedt"></canvas>
+</div>
+
+<script>
+    let myChart;
+    function updateChart(newData) {
+        const ctx = document.getElementById("thongkedt");
+        if (myChart)
+            myChart.destroy();
+        myChart = new Chart(ctx, {
+            type: newData.type,
+            data: {
+                labels: newData.labels,
+                datasets: [
+                    {
+                        label: newData.label,
+                        data: newData.data,
+                        backgroundColor: newData.backgroundColor,
+                        borderWidth: 1,
+                    },
+                ],
+            },
+        });
+    }
+</script>
+

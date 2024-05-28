@@ -1,0 +1,132 @@
+﻿@model BaoCaoWebNangCao.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+    BaoCaoWebNangCao.Models.WEBNANGCAOEntities db = new BaoCaoWebNangCao.Models.WEBNANGCAOEntities();
+}
+
+<div style="margin-top:-18px">
+    <section class="content-header">
+        <h1 style="font-size:23px">
+            Thêm sản phẩm
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/SANPHAMS/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/Admin/SANPHAMS/Index">Sản phẩm</a></li>
+            <li><a href="/Admin/SANPHAMS/Create">Thêm sản phẩm</a></li>
+        </ol>
+    </section>
+</div>
+
+@using (Html.BeginForm("Create", "SANPHAMs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box ">
+                    <div class="box-header">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-offset col-md-5">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                    <a href="@Url.Action("/Index","SANPHAMS",new {area="Admin"})" class="btn btn-default">Trở về</a>
+                                </div>
+                            </div>
+                            <hr style="margin-top:-3px" />
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label>Tên danh mục</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"> <i class="fa fa-list"></i></span>
+                                        <select class="form-control" id="iddanhmuc" name="iddanhmuc">
+                                            @foreach (var item in db.DANHMUCSANPHAMs.ToList())
+                                            {
+                                                <option value="@item.ID">@item.TENDANHMUC</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label>Tên sản phẩm</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input type="text" class="form-control" id="tensanpham" name="tensanpham" placeholder="Tên sản phẩm" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="ngaysanxuat">Ngày sản xuất</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="date" class="form-control" id="ngaysanxuat" name="ngaysanxuat" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="donvitinh">Đơn vị tính</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" > <i class="fa fa-book"></i></span>
+                                        <input type="text" class="form-control" id="donvitinh" name="donvitinh" placeholder="Đơn vị tính" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="soluong">Số lượng</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">  <i class="fa fa-sort" aria-hidden="true"></i></span>
+                                        <input type="number" class="form-control" id="soluong" name="soluong" placeholder="Số lượng" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="gia">Giá</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"> <i class="fa fa-btc"></i></span>
+                                        <input type="text" class="form-control" id="gia" name="gia" placeholder="Giá" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="chitiet">Thành phần</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                                        <input type="text" class="form-control" id="chitiet" name="chitiet" placeholder="Thành phần" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="hinhanh">Ảnh</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"> <i class="fa fa-picture-o"></i></span>
+                                        <input type="file" id="customFileInput" class="form-control" name="hinhanh" placeholder="Chọn hình ảnh" /> 
+                                     @*   <span class="input-group-addon"><label style="height:12px" for="customFileInput" name="hinhanh">Chọn</label></span>*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Chi tiết</label>
+                                    <textarea rows="7" class="form-control" id="chitiet2" name="chitiet2" placeholder=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

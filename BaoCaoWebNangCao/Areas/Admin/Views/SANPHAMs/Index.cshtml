@@ -1,0 +1,175 @@
+﻿@model IEnumerable<BaoCaoWebNangCao.Models.SANPHAM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+
+}
+
+<div style="margin-top:-15px">
+    <section class="content-header">
+        <h1 style="font-size:23px">
+            Danh sách sản phẩm
+            <small>Preview</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/SANPHAMS/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/Admin/SANPHAMS/Index">Sản phẩm</a></li>
+        </ol>
+    </section>
+</div>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box ">
+                    <div class="box-header">
+                        <form class="d-flex flex-row align-items-center flex-wrap" action="/Admin/SANPHAMS/Index">
+                            <div class="box-header with-border" style="margin-top:-6px">
+
+                                <div style="margin-top:-5px;">
+                                    <a href="Create" class="btn btn-default btn-sm checkbox-toggle"> Thêm mới</a>
+                                </div>
+                                <div class="box-tools pull-right">
+
+                                    <div class="has-feedback">
+
+                                        <input type="search" class="form-control input-sm" id="search" name="search" value="@ViewBag.Search" placeholder="Tên sản phẩm" />
+                                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+
+                                    </div>
+                                </div><!-- /.box-tools -->
+                            </div>
+
+                        </form>
+                    </div><!-- /.box-header -->
+                    <div style="overflow: auto ">
+                        <div class="box-body">
+                            <table id="example" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <b>Danh mục</b>
+                                        </th>
+                                        <th>
+                                            <b>Tên sản phẩm</b>
+                                        </th>
+                                        <th>
+                                            <b>Ảnh</b>
+                                        </th>
+
+
+                                        <th>
+                                            <b>Ngày sản xuất</b>
+                                        </th>
+                                        <th>
+                                            <b>Đơn vị tính</b>
+                                        </th>
+                                        <th>
+                                            <b>Số lượng</b>
+                                        </th>
+                                        <th>
+                                            <b>Giá</b>
+                                        </th>
+                                        <th>
+                                            <b>Thành phần</b>
+                                        </th>
+
+                                        <th>
+                                            <b>Chi tiết 2</b>
+                                        </th>
+
+                                        <th>Tác vụ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DANHMUCSANPHAM.TENDANHMUC)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TENSANPHAM)
+                                            </td>
+                                            <td>
+                                                <img src="@item.ANH" style="height:100px;width:100px" />
+                                            </td>
+
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NGAYSANXUAT)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DONVITINH)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SOLUONG)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.GIA)
+                                            </td>
+                                            <td>
+                                                <p style=" display: -webkit-box; -webkit-line-clamp:2; -webkit-box-orient: vertical; overflow: hidden;">@Html.DisplayFor(modelItem => item.CHITIET)</p>
+                                            </td>
+                                            <td>
+                                                <p style=" display: -webkit-box; -webkit-line-clamp:2; -webkit-box-orient: vertical; overflow: hidden;">@Html.DisplayFor(modelItem => item.CHITIET2)</p>
+                                            </td>
+
+                                            <td>
+                                                <button class="btn btn btn-xs" href=""><i class="fa fa-pencil"></i>    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) </button>
+                                                <button class="btn btn btn-xs" href=""><i class="fa fa-trash"></i>  @Html.ActionLink("Delete", "Delete", new { id = item.ID })</button>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+
+                            @if (ViewBag.TotalPages > 1)
+                            {
+                                <div style="margin-top:30px">
+                                    <div class="text-center">
+                                        @if (ViewBag.Page > 1)
+                                        {
+                                            @Html.ActionLink("<", "/Index", new { page = ViewBag.Page - 1, search = ViewBag.Search }, new { @class = "btn btn-default btn-sm checkbox-toggle" })
+                                        }
+                                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                                        {
+                                            if (i == ViewBag.Page)
+                                            {                             
+                                                <a class="btn btn-default btn-sm checkbox-toggle" style="color: cornflowerblue;"> @i</a>
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink(i.ToString(), "/Index", new { page = i, search = ViewBag.Search }, new { @class = "btn btn-default btn-sm checkbox-toggle" })
+                                            }
+                                        }
+                                        @if (ViewBag.Page < ViewBag.TotalPages)
+                                        {
+                                            @Html.ActionLink(">", "/Index", new { page = ViewBag.Page + 1, search = ViewBag.Search }, new { @class = "btn btn-default btn-sm checkbox-toggle" })
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div><!-- /.box-body -->
+                    </div>
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section>
+
+   
+
+
+
+
+
+
+
+
+
+
+

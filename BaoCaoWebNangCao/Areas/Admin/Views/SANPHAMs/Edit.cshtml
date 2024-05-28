@@ -1,0 +1,152 @@
+﻿@model BaoCaoWebNangCao.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+    BaoCaoWebNangCao.Models.WEBNANGCAOEntities db = new BaoCaoWebNangCao.Models.WEBNANGCAOEntities();
+}
+
+<div style="margin-top:-18px;margin-bottom:15px">
+    <section class="content-header">
+        <h1 style="font-size:23px">
+            Sửa sản phẩm
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/SANPHAMS/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/Admin/SANPHAMS/Index">Sản phẩm</a></li>
+            <li><a href="/Admin/SANPHAMS/Create">Sửa sản phẩm</a></li>
+        </ol>
+    </section>
+</div>
+
+
+
+
+
+
+
+@using (Html.BeginForm("Edit", "SANPHAMs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box ">
+                <div class="box-header">
+
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <div class="col-md-offset col-md-5">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                                <a href="@Url.Action("/Index","SANPHAMS",new {area="Admin"})" class="btn btn-default">Trở về</a>
+                            </div>
+
+                        </div>
+
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Tên danh mục</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-list"></i></span>
+                                    <select class="form-control" id="iddanhmuc" name="iddanhmuc">
+                                        @foreach (var item in db.DANHMUCSANPHAMs.ToList())
+                                        {
+                                            <option value="@item.ID">@item.TENDANHMUC</option>
+                                        }
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Tên sản phẩm</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    @Html.EditorFor(model => model.TENSANPHAM, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tên sản phẩm" } })
+                                    @Html.ValidationMessageFor(model => model.TENSANPHAM, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="ngaysanxuat">Ngày sản xuất</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="inputGroup-sizing-sm">   <i class="fa fa-calendar"></i></span>
+                                    <input type="date" class="form-control" id="ngaysanxuat" name="ngaysanxuat" placeholder="" value="@Model.NGAYSANXUAT.Value.ToString("yyyy-MM-dd")" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Đơn vị tính</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="inputGroup-sizing-sm"> <i class="fa fa-book"></i></span>
+                                    @Html.EditorFor(model => model.DONVITINH, new { htmlAttributes = new { @class = "form-control", @placeholder = "Đơn vị tính" } })
+                                    @Html.ValidationMessageFor(model => model.DONVITINH, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Số lượng</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">  <i class="fa fa-sort" aria-hidden="true"></i></span>
+                                    @Html.EditorFor(model => model.SOLUONG, new { htmlAttributes = new { @class = "form-control", @placeholder = "Số lượng" } })
+                                    @Html.ValidationMessageFor(model => model.SOLUONG, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Giá</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-btc"></i></span>
+                                    @Html.EditorFor(model => model.GIA, new { htmlAttributes = new { @class = "form-control", @placeholder = "Giá tiền" } })
+                                    @Html.ValidationMessageFor(model => model.GIA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Thành phần</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="inputGroup-sizing-sm"><i class="fa fa-font"></i></span>
+                                    @Html.EditorFor(model => model.CHITIET, new { htmlAttributes = new { @class = "form-control", @placeholder = "Thành phần" } })
+                                    @Html.ValidationMessageFor(model => model.CHITIET, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Ảnh</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"> <i class="fa fa-picture-o"></i></span>
+                                    <input type="file" class="form-control" name="hinhanh" />
+                                    @Html.ValidationMessageFor(model => model.ANH, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label>Chi tiết</label>
+                                <textarea rows="7" class="form-control" id="chitiet2" name="chitiet2">@Model.CHITIET2</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

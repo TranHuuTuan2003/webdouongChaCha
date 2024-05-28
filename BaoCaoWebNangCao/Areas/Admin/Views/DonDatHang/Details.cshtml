@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_layoutAdmin.cshtml";
+    BaoCaoWebNangCao.Models.WEBNANGCAOEntities db = new BaoCaoWebNangCao.Models.WEBNANGCAOEntities();
+}
+
+<div style="margin-top:-15px">
+    <section class="content-header">
+        <h1 style="font-size:23px">
+            Chi tiết đơn đặt hàng
+            <small>Preview</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/SANPHAMS/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/Admin/DonDatHang/Index">Đơn đặt hàng</a></li>
+            <li><a href="/Admin/DonDatHang/Details">Chi tiết đơn đặt hàng</a></li>
+        </ol>
+    </section>
+</div>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+
+            <div class="box">
+                @* <div style="margin-top:10px">
+                    <img class="profile-user-img img-responsive img-circle" src="https://tse1.mm.bing.net/th?id=OIP.BiCKfwDo53OAWNYYcHF_RwHaHn&pid=Api&rs=1&c=1&qlt=95&w=120&h=123" alt="User profile picture">
+                    <h4 style="font-size:18px;margin-top:8px" class="profile-username text-center">Trần Hữu Tuấn</h4>
+                </div>*@
+
+                <div class="box-body no-padding">
+
+                    @foreach (var item in db.TAIKHOANs.ToList())
+                    {
+                        <div>
+                            @{
+                                List<BaoCaoWebNangCao.Models.GIOHANG> data2 = (List<BaoCaoWebNangCao.Models.GIOHANG>)ViewBag.CT2;
+
+                                for (int i = 0; i<data2.Count; i++)
+                                {
+                                    if (@item.ID == @data2[i].IDTAIKHOAN)
+                                    {
+
+                                        <div style="margin-top:10px;">
+                                            <a style="margin-left: 12px; font-size: 13px; color: mediumblue;"><i class="fa fa-user"></i> Thông tin người mua</a>
+                                            <p style="margin-left: 12px; font-size: 12px; margin-top: 4px;">@data2[i].TAIKHOAN.TENNGUOIDUNG</p>
+                                        </div>
+
+                                        <center><div style="margin-top:-7px;width:89%;" class="page-header"> </div></center>
+
+                                        <div style="margin-top:-10px">
+                                            <a style="margin-left:12px;font-size:13px;color:mediumblue;"><i class="fa fa-phone"></i> SDT</a>
+                                            <p style="margin-left: 12px; font-size: 12px; margin-top: 4px;">@data2[i].TAIKHOAN.SODIENTHOAI </p>
+                                        </div>
+
+                                        <center><div style="margin-top:-7px;width:89%;" class="page-header"> </div></center>
+
+                                        <div style="margin-top:-10px">
+                                            <a style="margin-left:12px;font-size:13px;color:mediumblue;"><i class="fa fa-envelope-o"></i> Email</a>
+                                            <p style="margin-left:12px;font-size:12px;margin-top:4px;">@data2[i].TAIKHOAN.EMAIL</p>
+                                        </div>
+
+                                        <center><div style="margin-top:-7px;width:89%;" class="page-header"> </div></center>
+                                        <div style="margin-top:-10px">
+                                            <a style="margin-left:12px;font-size:13px;color:mediumblue;"><i class="fa fa-map-marker"></i> Địa chỉ</a>
+                                            <p style="margin-left:12px;font-size:12px;margin-top:4px;">@data2[i].TAIKHOAN.DIACHI</p>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="box box-solid" style="height:63px">
+                <div class="box-header with-border">
+
+                    <div>
+                        <a style="font-size:13px;color:mediumblue;">Kho bán </a>
+                        <p style="font-size: 12px; margin-top: 4px;">Kho chính </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="box">
+              
+                <table class="table table-responsive">
+                    <tr>
+                        @*<th>
+                    ID GIỎ HÀNG
+                </th>*@
+                        <th>
+
+                        </th>
+                        @*<th>
+                    TÊN SẢN PHẨM
+                </th>*@
+                        <th>
+                            <center> SỐ LƯỢNG </center>
+                        </th>
+                        <th>
+                            <center> Giá (đ) </center>
+                        </th>
+                        <th>
+                            <center> Thành tiền (đ) </center>
+                        </th>
+
+                    </tr>
+
+
+                    @foreach (var item in db.GIOHANGs.ToList())
+                    {
+                        <div>
+                            @{
+                                List<BaoCaoWebNangCao.Models.CHITIETGIOHANG> data = (List<BaoCaoWebNangCao.Models.CHITIETGIOHANG>)ViewBag.CT;
+
+
+                                for (int i = 0; i<data.Count; i++)
+                                {
+                                    if (@data[i].IDGIOHANG == @item.ID)
+                                    {
+
+                                    <tr>
+                                        @* <td>
+
+                                    @data[i].IDGIOHANG
+                                </td>*@
+                                        <td>
+                                            <img src="  @data[i].SANPHAM.ANH" style="height:80px;width:80px;margin-left:10px" />
+                                            <a style="margin-left:7px;color:mediumblue"> @data[i].SANPHAM.TENSANPHAM</a>
+                                        </td>
+
+                                        @* <td>@data[i].SANPHAM.TENSANPHAM</td>*@
+
+                                        <td>
+                                            <center><p style="margin-top:30px"> @data[i].SOLUONG </p></center>
+                                        </td>
+                                        <td>
+                                            <center><p style="margin-top:30px"> @data[i].SANPHAM.GIA đ </p></center>
+                                        </td>
+                                        <td>
+                                            <center><p style="margin-top:30px"> @(data[i].SANPHAM.GIA * data[i].SOLUONG) đ </p></center>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            }
+                    </div>
+                }
+                    </table>
+                </div>
+                @{ List<BaoCaoWebNangCao.Models.CHITIETGIOHANG> data3 = (List<BaoCaoWebNangCao.Models.CHITIETGIOHANG>)ViewBag.CT3;
+                    List<BaoCaoWebNangCao.Models.GIOHANG> da = (List<BaoCaoWebNangCao.Models.GIOHANG>)ViewBag.CT4;
+
+                    double t = 0;
+                    double totalCost = 0;
+
+                        <div class="box-footer" style="height:145px">
+                            <p style="color:darkgray;font-size:14px">• Thông tin thanh toán</p>
+                            <center><div style="margin-top:-10px;width:100%;" class="page-header"> </div></center>
+
+                            <div class="row invoice-info" style="margin-top:-10px">
+                                <div class="col-sm-6 invoice-col">
+                                    @foreach (var item in db.GIOHANGs.ToList())
+                                    {
+                                        <div>
+                                            @foreach (var detail in data3)
+                                            {
+                                                if (detail.IDGIOHANG == @item.ID)
+                                                {
+                                                   
+                                                    t += double.Parse(detail.SOLUONG.ToString());
+                                                    totalCost += double.Parse((detail.SANPHAM.GIA * detail.SOLUONG).ToString());
+
+                                                }
+                                            }
+                                        </div>
+                                    }
+
+                                    <div>
+                                        <div>
+                                            <div class="pull-right">
+                                                @foreach (var item in db.TAIKHOANs.ToList())
+                                                {
+                                                    <div>
+                                                        @foreach (var detail in da)
+                                                        {
+                                                            if (detail.IDTAIKHOAN == @item.ID)
+                                                            {
+                                                                <p style="color:mediumblue">@detail.ID</p>
+
+                                                            }
+                                                        }
+                                                    </div>
+                                                }
+                                            </div>
+                                            <p>Mã đơn hàng : </p>
+                                        </div>
+
+
+                                        <div>
+                                            <div class="pull-right">
+                                                <p style="color:mediumblue">Chính</p>
+                                            </div>
+                                            <p>Kho vận chuyển : </p>
+                                        </div>
+
+
+                                        <div>
+                                            <div class="pull-right">
+                                                <p style="color:mediumblue">Tiền mặt</p>
+                                            </div>
+                                            <p>Hình thức thanh toán : </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 invoice-col">
+                                    <div>
+                                        <div>
+                                            <div class="pull-right">
+                                                <p style="color:mediumblue">@t</p>
+                                            </div>
+                                            <p>Số lượng sản phẩm : </p>
+                                        </div>
+
+
+                                        <div>
+                                            <div class="pull-right">
+                                                <p style="color:mediumblue">@totalCost đ</p>
+                                            </div>
+                                            <p>Tổng đơn hàng : </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                }
+</section>
+        
+            
+

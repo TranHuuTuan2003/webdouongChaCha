@@ -1,0 +1,192 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/User/Views/Shared/_layoutUser.cshtml";
+    BaoCaoWebNangCao.Models.WEBNANGCAOEntities db = new BaoCaoWebNangCao.Models.WEBNANGCAOEntities();
+
+}
+
+<div class="clearfix">
+</div>
+<div class="page-index">
+    <div class="container">
+        <p>
+            Home - Sản phẩm
+        </p>
+    </div>
+</div>
+<div class="container_fullwidth">
+    <div class="container">
+        <div class="clearfix"></div>
+        <div class="featured-products">
+            <!-- chứa 6 ảnh vs txt -->
+            @foreach (var item in db.DANHMUCSANPHAMs.ToList())
+            {
+            <h3 class="title" ><p style="font-size:30px;margin-top:20px;"> @item.TENDANHMUC </p></h3>
+             <hr style="height: 1px; width: 100%; margin-bottom: 32px; border: none; background: linear-gradient(to right, red 40px, black 330px);  "/>
+             
+
+                <div class="control"><a id="prev_featured" class="prev" href="#">&lt;</a><a id="next_featured" class="next" href="#">&gt;</a></div>
+                <ul id="featured">
+                    <li>
+                        <div class="row">
+                            @{
+                                            List<BaoCaoWebNangCao.Models.SANPHAM> data = (List<BaoCaoWebNangCao.Models.SANPHAM>)ViewBag.HotProducts;
+
+
+                                            for (int i = 0; i<data.Count; i++)
+                                            {
+                                                if (@data[i].IDDANHMUC == @item.ID)
+                                            {
+
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="products">
+                                                <div ><a href="@Url.Action("/Details", "Trangchu", new { area = "User", id = @data[i].ID })"><img src="@data[i].ANH" alt="Product Name"></a></div>
+                                                <center><div style="margin-top:10px;margin-bottom:10px;font-size:17px">@data[i].TENSANPHAM</div></center>
+                                                <h4 class="price">@data[i].GIA đồng</h4> 
+                                                <div class="button_group">
+                                                    <a href="/User/Cart/AddToCart/@data[i].ID" class="button add-cart" type="button">Add To Cart</a>
+                                                    <button class="button compare" type="button"><i class="fa fa-exchange"></i></button><button class="button wishlist" type="button"><i class="fa fa-heart-o"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    </li>
+                </ul>
+                                }
+            </div>
+
+
+      @*  <div class="clearfix"></div>
+        <div class="featured-products">
+            <h3 class="title"><strong>Top</strong>ping</h3>
+            
+            <ul id="featured">
+                <li>
+                    <div class="row">
+                        @{
+                          
+                            for (int i = 0; i<data.Count; i++)
+                            {
+                                if (@data[i].IDDANHMUC == 9)
+                                {
+
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="products">
+                                            <div class="thumbnail"><a href="@Url.Action("/Details","Trangchu", new { area = "User",id= @data[i].ID })"><img src="@data[i].ANH" alt="Product Name"></a></div>
+                                            <center><div style="margin-top:340px;margin-bottom:10px;font-size:17px">@data[i].TENSANPHAM</div></center>
+                                            <h4 class="price">$@Html.FormatValue(data[i].GIA, "{0:#,###}")</h4>
+                                            <div class="button_group">
+                                            <a href="/User/Cart/AddToCart/@data[i].ID" class="button add-cart" type="button">Add To Cart</a><button class="button compare" type="button"><i class="fa fa-exchange"></i></button><button class="button wishlist" type="button"><i class="fa fa-heart-o"></i></button></div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="clearfix"></div>
+        <div class="featured-products">
+            <h3 class="title"><strong>Trà pha</strong> trà sữa</h3>
+            <ul id="featured">
+                <li>
+                    <div class="row">
+                        @{
+                            
+                            for (int i = 0; i<data.Count; i++)
+                            {
+                                if (@data[i].IDDANHMUC == 10)
+                                {
+
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="products">
+                                            <div class="thumbnail"><a href="@Url.Action("/Details","Trangchu", new { area = "User",id= @data[i].ID })"><img src="@data[i].ANH" alt="Product Name"></a></div>
+                                            <center><div style="margin-top:340px;margin-bottom:10px;font-size:17px">@data[i].TENSANPHAM</div></center>
+                                            <h4 class="price">$@Html.FormatValue(data[i].GIA, "{0:#,###}")</h4>
+                                            <div class="button_group">
+                                            <a href="/User/Cart/AddToCart/@data[i].ID" class="button add-cart" type="button">Add To Cart</a>
+                                            <button class="button compare" type="button"><i class="fa fa-exchange"></i></button><button class="button wishlist" type="button"><i class="fa fa-heart-o"></i></button></div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="clearfix"></div>
+        <div class="featured-products">
+            <h3 class="title"><strong>Bột pha</strong> trà sữa</h3>
+           <ul id="featured">
+                <li>
+                    <div class="row">
+                        @{
+                          
+
+                            for (int i = 0; i<data.Count; i++)
+                            {
+                                if (@data[i].IDDANHMUC == 8)
+                                {
+
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="products">
+                                            <div class="thumbnail"><a href="@Url.Action("/Details","Trangchu", new { area = "User",id= @data[i].ID })"><img src="@data[i].ANH" alt="Product Name"></a></div>
+                                            <center><div style="margin-top:340px;margin-bottom:10px;font-size:17px">@data[i].TENSANPHAM</div></center>
+                                            <h4 class="price">$@Html.FormatValue(data[i].GIA, "{0:#,###}")</h4>
+                                            <div class="button_group"><a href="/User/Cart/AddToCart/@data[i].ID" class="button add-cart" type="button">Add To Cart</a>
+                                            <button class="button compare" type="button"><i class="fa fa-exchange"></i></button><button class="button wishlist" type="button"><i class="fa fa-heart-o"></i></button></div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="clearfix"></div>
+        <div class="featured-products">
+            <h3 class="title"><strong>Set pha</strong> trè</h3>
+            <ul id="featured">
+                <li>
+                    <div class="row">
+                        @{
+                          
+
+                            for (int i = 0; i<data.Count; i++)
+                            {
+                                if (@data[i].IDDANHMUC == 12)
+                                {
+
+                                    <div class="col-md-3 col-sm-6">
+                                        <div class="products">
+                                            <div class="thumbnail"><a href="@Url.Action("/Details","Trangchu", new { area = "User",id= @data[i].ID })"><img src="@data[i].ANH" alt="Product Name"></a></div>
+                                            <center><div style="margin-top:340px;margin-bottom:10px;font-size:17px">@data[i].TENSANPHAM</div></center>
+                                            <h4 class="price">$@Html.FormatValue(data[i].GIA, "{0:#,###}")</h4>
+                                            <div class="button_group"><a href="/User/Cart/AddToCart/@data[i].ID" class="button add-cart" type="button">Add To Cart</a><button class="button compare" type="button"><i class="fa fa-exchange"></i></button><button class="button wishlist" type="button"><i class="fa fa-heart-o"></i></button></div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </li>
+            </ul>
+        </div>*@
+    </div>
+</div>
+
